@@ -1,19 +1,21 @@
-// Tools
+// Import necessary modules
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const parser = require('body-parser');
+const bodyParser = require('body-parser'); // Fixed import
 
-// Schemas
-const berita = require('../backend/schemas/berita');
-const fauna = require('../backend/schemas/fauna');
-const flora = require('../backend/schemas/flora');
+// Import schemas
+const berita = require('./schemas/berita');
+const fauna = require('./schemas/fauna');
+const flora = require('./schemas/flora');
 
-// Initializing 
+// Initialize Express app
 const app = express();
+
+// Middleware setup
 app.use(cors());
-app.use(parser.json());
-app.use(express.static('public'))
+app.use(bodyParser.json()); 
+app.use(express.static('public'));
 
 // MongoDB Connection using Mongoose
 mongoose.connect('mongodb+srv://TAHURA:TAHURA123@tahura.cjtoycf.mongodb.net/TAHURA', {
@@ -97,7 +99,7 @@ app.get('/api/getAllBerita', async (req, res) => {
   }
 });
 
-// Server Check
+// Start server
 const PORT = process.env.PORT || 4242;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
